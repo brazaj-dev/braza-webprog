@@ -1,23 +1,47 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
-import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+// HomePage Structure
+import Layout from "./components/Layout";
+import ArticlePage from "./pages/ArticlePage";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+
+const routes = [
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "about",
+        element: <AboutPage />,
+      },
+      {
+        path: "articles",
+        element: <ArticlePage />,
+      },
+      {
+        path: "*",
+        element: (
+          <div className="px-4 py-10 text-center text-zinc-900">
+            <h1 className="text-2xl font-bold">Page not found</h1>
+            <p className="mt-2">This route does not exist.</p>
+          </div>
+        ),
+      },
+    ],
+  },
+];
+
+const router = createBrowserRouter(routes);
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <header>
-          <h1>Welcome to My React App!</h1>
-          Name: Braza, Joshua <br />
-          Student Number: 2023-102112 <br />
-          Block: INF 234 <br />
-          Email: brazaj@students.national-u.edu.ph <br />
-        </header>
-      </div>
+      <RouterProvider router={router} />
     </>
   );
 }
