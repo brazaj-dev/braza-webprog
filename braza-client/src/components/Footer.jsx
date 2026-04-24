@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
-import articles from "../assets/article-content.js";
 import logoImg from "../assets/logo.jpg";
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 border-zinc-900 bg-zinc-950 text-zinc-100">
+    <footer className="border-t border-slate-200 bg-slate-50 text-slate-700">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr] items-start">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-12 w-12 overflow-hidden rounded-full border-2 border-zinc-700 bg-zinc-900">
+              <div className="h-12 w-12 overflow-hidden rounded-full border border-slate-300 bg-white">
                 <img
                   src={logoImg}
                   alt="Site logo"
@@ -17,15 +16,15 @@ const Footer = () => {
                 />
               </div>
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-zinc-400">
+                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
                   Shuae's Website
                 </p>
-                <p className="text-xl font-semibold text-white">
-                  Article hub and footer logo
+                <p className="text-xl font-semibold text-slate-900">
+                  Animal Article hub
                 </p>
               </div>
             </div>
-            <p className="max-w-xl text-sm leading-6 text-zinc-400">
+            <p className="max-w-xl text-sm leading-6 text-slate-500">
               Explore the latest articles, learn about animal types, and use the
               footer links to jump straight to content.
             </p>
@@ -33,7 +32,7 @@ const Footer = () => {
 
           <div className="flex flex-col items-start justify-between gap-8 sm:items-end">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-zinc-400">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
                 Follow us
               </p>
               <div className="mt-4 flex gap-3">
@@ -41,7 +40,7 @@ const Footer = () => {
                   href="https://www.facebook.com/jshbzz/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900 text-zinc-100 transition hover:bg-zinc-800"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition hover:bg-slate-100"
                   aria-label="Facebook"
                 >
                   <svg
@@ -57,7 +56,7 @@ const Footer = () => {
                   href="https://www.instagram.com/_jshbrz/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900 text-zinc-100 transition hover:bg-zinc-800"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition hover:bg-slate-100"
                   aria-label="Instagram"
                 >
                   <svg
@@ -73,7 +72,7 @@ const Footer = () => {
                   href="https://github.com/brazaj-dev"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900 text-zinc-100 transition hover:bg-zinc-800"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition hover:bg-slate-100"
                   aria-label="GitHub"
                 >
                   <svg
@@ -88,8 +87,8 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-zinc-800 bg-zinc-900 px-4 py-4 text-sm text-zinc-400">
-              <p className="font-semibold text-white">Need help?</p>
+            <div className="rounded-3xl border border-slate-200 bg-white px-4 py-4 text-sm text-slate-600">
+              <p className="font-semibold text-slate-900">Need help?</p>
               <p className="mt-2">
                 Visit the homepage, explore articles, or reach out through our
                 social profiles.
@@ -98,24 +97,24 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-zinc-800 pt-6 text-sm text-zinc-500 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 border-t border-slate-200 pt-6 text-sm text-slate-500 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Braza WebProg. Built with React.</p>
           <div className="flex flex-wrap gap-4">
             <Link
               to="/"
-              className="text-zinc-400 transition hover:text-zinc-200"
+              className="text-slate-600 transition hover:text-slate-900"
             >
               Home
             </Link>
             <Link
               to="/articles"
-              className="text-zinc-400 transition hover:text-zinc-200"
+              className="text-slate-600 transition hover:text-slate-900"
             >
               Articles
             </Link>
             <Link
               to="/about"
-              className="text-zinc-400 transition hover:text-zinc-200"
+              className="text-slate-600 transition hover:text-slate-900"
             >
               About
             </Link>

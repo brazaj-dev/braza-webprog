@@ -7,137 +7,129 @@ import blehImg from "../assets/bleh.jpg";
 
 const HomePage = () => {
   return (
-    <div className="flex w-full flex-col gap-6">
-      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+    <div className="flex w-full flex-col gap-10">
+      <section className="mx-auto max-w-7xl rounded-3xl border border-slate-200 bg-sky-50/70 px-6 py-10 shadow-sm sm:px-8 lg:px-10">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-              Hero Section
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+              Welcome
             </p>
-            <h1 className="max-w-xl text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">
-              Welcome to My Websiteeee!𑣲⋆｡˚
+            <h1 className="max-w-2xl text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
+              Discover animal stories, guides, and featured articles.
             </h1>
-            <p className="mt-4 max-w-lg text-sm leading-7 text-zinc-600 sm:text-base">
-              WAAAAAAAAAAAAAAAAAAAAHH!
+            <p className="mt-5 max-w-xl text-base leading-8 text-slate-600">
+              Explore a clean, organized space for the latest animal articles,
+              from dogs and cats to birds, monkeys, and fish.
             </p>
-
-            <div className="mt-6">
-              <Button to="/about" variant="primary">
-                Learn More
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button to="/articles" variant="primary">
+                Browse Articles
               </Button>
+              <Button to="/about">About Me</Button>
             </div>
           </div>
 
-          <div className="rounded-3xl border-2 border-dashed border-zinc-300 bg-zinc-100 p-6">
-            <div className="flex min-h-65 items-center justify-center rounded-full bg-zinc-200">
-              <img
-                src="./src/assets/bleh.jpg"
-                alt="Bleh"
-                className="h-55 w-full object-cover rounded-full"
-              />
-            </div>
+          <div className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm">
+            <img
+              src={blehImg}
+              alt="Wildlife illustration"
+              className="h-[420px] w-full object-cover"
+            />
           </div>
         </div>
       </section>
 
-      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="mb-6">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-            KPI Section
+      <section className="mx-auto max-w-7xl rounded-3xl border border-slate-200 bg-slate-50 px-6 py-10 shadow-sm sm:px-8 lg:px-10">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+            Overview
           </p>
-          <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
-            Quick overview blocks
+          <h2 className="mt-2 text-3xl font-semibold text-slate-900">
+            Quick highlights
           </h2>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-2xl font-bold text-zinc-900">12</p>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-              Projects
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 text-center">
+            <p className="text-3xl font-bold text-slate-900">12</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+              Articles
             </p>
           </div>
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-2xl font-bold text-zinc-900">08</p>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-              Sections
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 text-center">
+            <p className="text-3xl font-bold text-slate-900">04</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+              Categories
             </p>
           </div>
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-2xl font-bold text-zinc-900">24</p>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-              Screens
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 text-center">
+            <p className="text-3xl font-bold text-slate-900">24</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+              Cards
             </p>
           </div>
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-2xl font-bold text-zinc-900">04</p>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-              Layouts
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 text-center">
+            <p className="text-3xl font-bold text-slate-900">100%</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+              Clean design
             </p>
           </div>
         </div>
       </section>
 
-      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="mb-6">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-            Feature Cards
+      <section className="mx-auto max-w-7xl rounded-3xl border border-slate-200 bg-slate-50 px-6 py-10 shadow-sm sm:px-8 lg:px-10">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+            Featured animals
           </p>
-          <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
-            Simple wireframe cards
+          <h2 className="mt-2 text-3xl font-semibold text-slate-900">
+            Popular animal cards
           </h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
-            <div className="overflow-hidden rounded-[1.25rem] border-2 border-dashed border-zinc-300 bg-zinc-200">
+        <div className="grid gap-6 md:grid-cols-3">
+          <article className="rounded-3xl border border-slate-200 bg-white p-5">
+            <div className="overflow-hidden rounded-[1.25rem] bg-slate-50 shadow-sm">
               <img
-                src="./src/assets/dog.avif"
+                src={dogImg}
                 alt="Dog"
-                className="h-48 w-full object-cover"
+                className="h-48 w-full object-cover object-center"
               />
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-zinc-900">Dog</h3>
-            <p className="mt-3 text-sm leading-6 text-zinc-600">
-              Friendly canine imagery to represent a warm feature card.
+            <h3 className="mt-5 text-lg font-semibold text-slate-900">Dogs</h3>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Loyal and playful friends, perfect for families and active
+              lifestyles.
             </p>
-            <Button className="mt-4" variant="primary">
-              View More
-            </Button>
           </article>
 
-          <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
-            <div className="overflow-hidden rounded-[1.25rem] border-2 border-dashed border-zinc-300 bg-zinc-200">
+          <article className="rounded-3xl border border-slate-200 bg-white p-5">
+            <div className="overflow-hidden rounded-[1.25rem] bg-slate-50 shadow-sm">
               <img
-                src="./src/assets/bird.webp"
+                src={birdImg}
                 alt="Bird"
-                className="h-48 w-full object-cover"
+                className="h-48 w-full object-cover object-center"
               />
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-zinc-900">Bird</h3>
-            <p className="mt-3 text-sm leading-6 text-zinc-600">
-              Bright bird visual for an eye-catching card presentation.
+            <h3 className="mt-5 text-lg font-semibold text-slate-900">Birds</h3>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Colorful and curious, birds bring motion and melody to every
+              scene.
             </p>
-            <Button className="mt-4" variant="primary">
-              View More
-            </Button>
           </article>
 
-          <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
-            <div className="overflow-hidden rounded-[1.25rem] border-2 border-dashed border-zinc-300 bg-zinc-200">
+          <article className="rounded-3xl border border-slate-200 bg-white p-5">
+            <div className="overflow-hidden rounded-[1.25rem] bg-slate-50 shadow-sm">
               <img
-                src="./src/assets/cat.webp"
+                src={catImg}
                 alt="Cat"
-                className="h-48 w-full object-cover"
+                className="h-48 w-full object-cover object-center"
               />
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-zinc-900">Cat</h3>
-            <p className="mt-3 text-sm leading-6 text-zinc-600">
-              Elegant feline card for related feature content.
+            <h3 className="mt-5 text-lg font-semibold text-slate-900">Cats</h3>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Graceful and independent, cats add calm personality to every page.
             </p>
-            <Button className="mt-4" variant="primary">
-              View More
-            </Button>
           </article>
         </div>
       </section>

@@ -4,9 +4,9 @@ import NavBar from "./NavBar";
 
 const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-grey-150 text-zinc-1100">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
       <NavBar />
-      <main className="flex-6 pb-50 pt-10">
+      <main className="flex-1 py-10">
         <Outlet />
       </main>
       <Footer />

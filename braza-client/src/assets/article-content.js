@@ -76,8 +76,7 @@ const articles = [
     cardTitle: "Fish",
     cardDescription:
       "Explore aquatic life and how fish adapt to water-based habitats across the planet.",
-    image:
-      "https://images.unsplash.com/photo-1518866211909-5a8d2c2f4a07?auto=format&fit=crop&w=800&q=80",
+    image: new URL("./fish.webp", import.meta.url).href,
     description:
       "Dive into the underwater world of fish and discover how they survive in freshwater and saltwater.",
     types: ["Freshwater fish", "Saltwater fish", "Aquatic animals"],

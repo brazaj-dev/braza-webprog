@@ -11,21 +11,27 @@ const navLinkClassName = ({ isActive }) =>
   [
     "rounded-full border-2 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] transition",
     isActive
-      ? "border-zinc-900 bg-zinc-900 text-zinc-50"
-      : "border-transparent text-zinc-500 hover:border-zinc-900 hover:bg-zinc-50 hover:text-zinc-900",
+      ? "border-sky-500 bg-sky-500 text-white"
+      : "border-transparent text-slate-600 hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900",
   ].join(" ");
 
 const Navbar = () => {
   return (
-    <header className="border-b-2 border-zinc-900 bg-pink-200">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-10 px-4 py-4 sm:px-6 lg:px-8">
+    <header className="border-b border-slate-200 bg-slate-50 shadow-sm">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
-          <div className="text-lg font-bold text-zinc-900">SHUAE'S WEBSITE</div>
-          <img
-            src="./src/assets/logo.jpg"
-            alt="logo"
-            className="h-10 w-10 object-cover rounded-full"
-          />
+          <div className="h-12 w-12 overflow-hidden rounded-full border border-slate-200 bg-slate-100">
+            <img
+              src={logoImg}
+              alt="Site logo"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-900">
+              Braza Animal Hub
+            </p>
+          </div>
         </div>
 
         <nav className="flex items-center gap-3">
