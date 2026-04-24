@@ -1,36 +1,33 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-// HomePage Structure
+import "./assets/styles/index.css";
 import Layout from "./components/Layout";
+import AboutPage from "./pages/AboutPage";
+import ArticleListPage from "./pages/ArticleListPage";
 import ArticlePage from "./pages/ArticlePage";
 import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/AboutPage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const routes = [
   {
     path: "/",
     element: <Layout />,
+    errorElement: <NotFoundPage />,
     children: [
       {
-        index: true,
+        path: "/",
         element: <HomePage />,
       },
       {
-        path: "about",
+        path: "/about",
         element: <AboutPage />,
       },
       {
-        path: "articles",
-        element: <ArticlePage />,
+        path: "/articles",
+        element: <ArticleListPage />,
       },
       {
-        path: "*",
-        element: (
-          <div className="px-4 py-10 text-center text-zinc-900">
-            <h1 className="text-2xl font-bold">Page not found</h1>
-            <p className="mt-2">This route does not exist.</p>
-          </div>
-        ),
+        path: "/articles/:name",
+        element: <ArticlePage />,
       },
     ],
   },
