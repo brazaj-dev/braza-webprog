@@ -45,6 +45,12 @@ const Navbar = () => {
               {link.label}
             </NavLink>
           ))}
+          <NavLink
+            to="/auth/signin"
+            className="rounded-full bg-sky-500 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white transition shadow-sm hover:bg-sky-600"
+          >
+            Sign In
+          </NavLink>
         </nav>
       </div>
     </header>

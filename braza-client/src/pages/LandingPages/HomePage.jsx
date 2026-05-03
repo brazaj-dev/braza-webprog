@@ -1,9 +1,9 @@
-import Button from "../components/Button";
+import Button from "../../components/Button";
 
-import dogImg from "../assets/dog.avif"; // Use the full name from your explorer
-import catImg from "../assets/cat.webp";
-import birdImg from "../assets/bird.webp";
-import blehImg from "../assets/bleh.jpg";
+import dogImg from "../../assets/dog.avif"; // Use the full name from your explorer
+import catImg from "../../assets/cat.webp";
+import birdImg from "../../assets/bird.webp";
+import blehImg from "../../assets/bleh.jpg";
 
 const HomePage = () => {
   return (

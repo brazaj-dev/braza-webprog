@@ -1,6 +1,6 @@
-import Button from "../components/Button";
+import Button from "../../components/Button";
 
-import profileImg from "../assets/profile.jpg";
+import profileImg from "../../assets/profile.jpg";
 
 const AboutPage = () => {
   return (
@@ -13,6 +13,7 @@ const AboutPage = () => {
                 src={profileImg}
                 alt="Profile"
                 className="h-full w-full rounded-[1.25rem] border-2 border-slate-300 object-cover flex-shrink-0"
+                style={{ filter: "brightness(1.15)" }}
               />
             </div>
           </div>
@@ -21,7 +22,7 @@ const AboutPage = () => {
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500">
               About Me
             </p>
-            <h1 className="max-w-xl text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">
+            <h1 className="max-w-xl text-3xl font-bold leading-tight text-slate-800 sm:text-4xl">
               Braza, Joshua Carlo
             </h1>
             <p className="mt-4 max-w-lg text-sm leading-7 text-slate-600 sm:text-base">
