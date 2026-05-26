@@ -1,8 +1,26 @@
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import ArticleList from "../../components/ArticleList";
-import articles from "../../data/article-content.js";
+import { fetchArticles } from "../../services/ArticleService";
+import articlesData from "../../data/article-content.js";
 
 const ArticleListPage = () => {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const loadArticles = async () => {
+      try {
+        const { data } = await fetchArticles();
+        setArticles(data.articles || []);
+      } catch (error) {
+        console.error("Failed to load articles from the API:", error);
+        setArticles(articlesData);
+      }
+    };
+
+    loadArticles();
+  }, []);
+
   return (
     <div className="flex w-full flex-col gap-10">
       <section className="mx-auto max-w-7xl rounded-3xl border border-slate-200 bg-slate-50 px-6 py-10 shadow-sm sm:px-8 lg:px-10">

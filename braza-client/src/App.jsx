@@ -8,12 +8,14 @@ import AboutPage from "./pages/LandingPages/AboutPage.jsx";
 import ArticleListPage from "./pages/LandingPages/ArticleListPage.jsx";
 import ArticlePage from "./pages/LandingPages/ArticlePage.jsx";
 import SignInPage from "./pages/AuthPages/SignInPage.jsx";
+import AdminSignInPage from "./pages/AuthPages/AdminSignInPage.jsx";
 import SignUpPage from "./pages/AuthPages/SignUpPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import DashLayout from "./layouts/DashLayout.jsx";
 import DashboardPage from "./pages/DashboardPages/DashboardPage.jsx";
 import ReportsPage from "./pages/DashboardPages/ReportsPage.jsx";
-import UsersPage from "./pages/DashboardPages/UsersPage.jsx";
+import DashArticleListPage from "./pages/DashboardPages/DashArticleListPage.jsx";
+import RequireAuth from "./components/RequireAuth.jsx";
 
 const routes = [
   {
@@ -40,7 +42,7 @@ const routes = [
     ],
   },
   {
-    path: "auth/",
+    path: "/auth/*",
     element: <AuthLayout />,
     errorElement: <NotFoundPage />,
     children: [
@@ -49,18 +51,27 @@ const routes = [
         element: <SignInPage />,
       },
       {
+        path: "admin-signin",
+        element: <AdminSignInPage />,
+      },
+      {
         path: "signup",
         element: <SignUpPage />,
       },
     ],
   },
   {
-    path: "dashboard",
-    element: <DashLayout />,
+    path: "/dashboard/*",
+    element: (
+      <RequireAuth>
+        <DashLayout />
+      </RequireAuth>
+    ),
     children: [
       { index: true, element: <DashboardPage /> },
       { path: "reports", element: <ReportsPage /> },
-      { path: "users", element: <UsersPage /> },
+
+      { path: "articles", element: <DashArticleListPage /> },
     ],
   },
 ];

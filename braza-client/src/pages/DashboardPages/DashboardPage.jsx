@@ -1,238 +1,106 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { BarChart } from "@mui/x-charts/BarChart";
-import { DataGrid } from "@mui/x-data-grid";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import { Gauge } from "@mui/x-charts/Gauge";
-import {
-  Typography,
-  Card,
-  CardContent,
-  CardActions,
-  Chip,
-} from "@mui/material";
-import { PieChart } from "@mui/x-charts/PieChart";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import PersonIcon from "@mui/icons-material/Person";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import GroupIcon from "@mui/icons-material/Group";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  { field: "firstName", headerName: "First Name", width: 150, editable: true },
-  { field: "lastName", headerName: "Last Name", width: 150, editable: true },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "fullName",
-    headerName: "Full Name",
-    width: 160,
-    valueGetter: (params) =>
-      params && params.row
-        ? `${params.row.firstName || ""} ${params.row.lastName || ""}`
-        : "",
-  },
-];
-
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 14 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 31 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 31 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 11 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
+const stats = [
+  { value: "8", label: "New Reports" },
+  { value: "22", label: "Published Articles" },
+  { value: "3", label: "Pending Reviews" },
+  { value: "99%", label: "Uptime" },
 ];
 
 function DashboardPage() {
-  const location = useLocation();
-
-  // 📊 Calculations
-  const totalUsers = rows.length;
-  const validAges = rows.filter((r) => r.age !== null);
-  const avgAge =
-    validAges.reduce((sum, r) => sum + r.age, 0) / validAges.length;
-
-  const maxAge = Math.max(...validAges.map((r) => r.age));
+  const navigate = useNavigate();
 
   return (
-    <>
-      <Typography variant="h4" gutterBottom>
-        Dashboard Overview
-      </Typography>
+    <div className="flex w-full flex-col gap-10">
+      <section className="mx-auto max-w-7xl rounded-3xl border border-slate-200 bg-white px-6 py-10 shadow-sm sm:px-8 lg:px-10">
+        <div className="max-w-3xl">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+            Dashboard Overview
+          </p>
+          <h1 className="text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
+            Welcome back.
+          </h1>
+          <p className="mt-5 text-base leading-8 text-slate-600">
+            This is your dashboard hub for reports and article management.
+            Choose a quick action or review your latest metrics.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button to="/dashboard/reports" variant="primary">
+              Reports
+            </Button>
+            <Button to="/dashboard/articles">Articles</Button>
+          </div>
+        </div>
+      </section>
 
-      {/* 🔹 SUMMARY CARDS */}
-      <Stack direction={{ xs: "column", md: "row" }} spacing={2} mb={4}>
-        <Card
-          sx={{
-            flex: 1,
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-          }}
-        >
-          <CardContent>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
+      <section className="mx-auto max-w-7xl rounded-3xl border border-slate-200 bg-slate-50 px-6 py-10 shadow-sm sm:px-8 lg:px-10">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+            Status
+          </p>
+          <h2 className="mt-2 text-3xl font-semibold text-slate-900">
+            Today's activity at a glance
+          </h2>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((item) => (
+            <div
+              key={item.label}
+              className="rounded-3xl border border-slate-200 bg-white p-6 text-center"
             >
-              <Box>
-                <Typography
-                  variant="body2"
-                  sx={{ color: "#fff", opacity: 0.8 }}
-                >
-                  Total Users
-                </Typography>
-                <Typography
-                  variant="h4"
-                  sx={{ color: "#fff", fontWeight: "bold" }}
-                >
-                  {totalUsers}
-                </Typography>
-              </Box>
-              <GroupIcon sx={{ fontSize: 50, color: "#fff", opacity: 0.8 }} />
-            </Stack>
-          </CardContent>
-        </Card>
+              <p className="text-3xl font-bold text-slate-900">{item.value}</p>
+              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+                {item.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-        <Card
-          sx={{
-            flex: 1,
-            background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-          }}
-        >
-          <CardContent>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Box>
-                <Typography
-                  variant="body2"
-                  sx={{ color: "#fff", opacity: 0.8 }}
-                >
-                  Average Age
-                </Typography>
-                <Typography
-                  variant="h4"
-                  sx={{ color: "#fff", fontWeight: "bold" }}
-                >
-                  {avgAge.toFixed(1)}
-                </Typography>
-              </Box>
-              <AccessTimeIcon
-                sx={{ fontSize: 50, color: "#fff", opacity: 0.8 }}
-              />
-            </Stack>
-          </CardContent>
-        </Card>
+      <section className="mx-auto max-w-7xl rounded-3xl border border-slate-200 bg-slate-50 px-6 py-10 shadow-sm sm:px-8 lg:px-10">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+            Actions
+          </p>
+          <h2 className="mt-2 text-3xl font-semibold text-slate-900">
+            Quick links for dashboard work
+          </h2>
+        </div>
 
-        <Card
-          sx={{
-            flex: 1,
-            background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-          }}
-        >
-          <CardContent>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Box>
-                <Typography
-                  variant="body2"
-                  sx={{ color: "#fff", opacity: 0.8 }}
-                >
-                  Oldest User
-                </Typography>
-                <Typography
-                  variant="h4"
-                  sx={{ color: "#fff", fontWeight: "bold" }}
-                >
-                  {maxAge}
-                </Typography>
-              </Box>
-              <TrendingUpIcon
-                sx={{ fontSize: 50, color: "#fff", opacity: 0.8 }}
-              />
-            </Stack>
-          </CardContent>
-        </Card>
-      </Stack>
+        <div className="grid gap-6 md:grid-cols-2">
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-xl font-semibold text-slate-900">
+              Open Reports
+            </h3>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Review the latest reports, analytics, and export options
+              available.
+            </p>
+            <div className="mt-6">
+              <Button to="/dashboard/reports" variant="primary">
+                Go to Reports
+              </Button>
+            </div>
+          </article>
 
-      {/* 🔹 GAUGE SECTION */}
-      <Stack direction="row" spacing={3} mb={4}>
-        <Gauge width={120} height={120} value={avgAge} />
-        <Gauge width={120} height={120} value={maxAge} valueMax={150} />
-      </Stack>
-
-      {/* 🔹 CHARTS */}
-      <Stack direction={{ xs: "column", md: "row" }} spacing={3} mb={4}>
-        <BarChart
-          series={[{ data: validAges.map((r) => r.age), label: "User Ages" }]}
-          xAxis={[
-            {
-              data: validAges.map((r) => r.firstName),
-              scaleType: "band",
-            },
-          ]}
-          height={300}
-        />
-
-        <PieChart
-          series={[
-            {
-              data: [
-                { id: 0, value: totalUsers, label: "Users" },
-                { id: 1, value: 10, label: "Admins" },
-              ],
-            },
-          ]}
-          width={300}
-          height={250}
-        />
-      </Stack>
-
-      {/* 🔹 DATA TABLE */}
-      <Typography variant="h5" gutterBottom>
-        Users Overview
-      </Typography>
-
-      <Box sx={{ height: 400, width: "100%", mb: 4 }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSizeOptions={[5]}
-          checkboxSelection
-        />
-      </Box>
-
-      {/* 🔹 MAP */}
-      <Typography variant="h5" gutterBottom>
-        Location Map
-      </Typography>
-
-      <Box sx={{ height: 400 }}>
-        <MapContainer
-          center={[14.604253, 120.994314]}
-          zoom={13}
-          style={{ height: "100%", width: "100%" }}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <Marker position={[14.604253, 120.994314]}>
-            <Popup>Manila Location</Popup>
-          </Marker>
-        </MapContainer>
-      </Box>
-    </>
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-xl font-semibold text-slate-900">
+              Manage Articles
+            </h3>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Access article listings, add new content, and keep everything
+              organized.
+            </p>
+            <div className="mt-6">
+              <Button to="/dashboard/articles">Go to Articles</Button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
   );
 }
 

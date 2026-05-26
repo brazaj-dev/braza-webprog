@@ -23,7 +23,12 @@ const ArticleList = ({ articles }) => {
             {article.cardTitle || article.title}
           </h3>
           <p className="mt-3 text-sm leading-6 text-slate-600">
-            {article.cardDescription || article.content[0].substring(0, 150)}
+            {article.cardDescription ||
+              (Array.isArray(article.content)
+                ? article.content[0].substring(0, 150)
+                : article.content?.substring
+                  ? article.content.substring(0, 150)
+                  : article.description?.substring(0, 150) || "")}
           </p>
           <Link to={`/articles/${article.name}`}>
             <Button className="mt-4">Read More</Button>

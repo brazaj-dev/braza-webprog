@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { styled, useTheme, alpha } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -8,43 +8,43 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import AssessmentIcon from "@mui/icons-material/Assessment";
-import Button from "@mui/material/Button";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import ArticleIcon from "@mui/icons-material/Article";
 
 const drawerWidth = 240;
-const dashboardNavItems = [
+const allDashboardNavItems = [
   {
     label: "Dashboard",
     title: "Dashboard",
     to: "/dashboard",
     icon: DashboardIcon,
+    requiredRole: ["admin", "viewer"], // All can access
   },
   {
     label: "Reports",
     title: "Reports",
     to: "/dashboard/reports",
     icon: AssessmentIcon,
+    requiredRole: ["admin", "viewer"], // All users can access reports
   },
   {
-    label: "Users",
-    title: "Users",
-    to: "/dashboard/users",
-    icon: PeopleIcon,
+    label: "Articles",
+    title: "Articles",
+    to: "/dashboard/articles",
+    icon: ArticleIcon,
+    requiredRole: ["admin", "viewer"], // All users can access articles
   },
 ];
 
@@ -63,19 +63,34 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: theme.spacing(7) + 1,
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: theme.spacing(8) + 1,
   },
 });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    width: drawerWidth,
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": {
+      ...openedMixin(theme),
+      width: drawerWidth,
+    },
+  }),
+  ...(!open && {
+    width: theme.spacing(7) + 1,
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": {
+      ...closedMixin(theme),
+      width: theme.spacing(7) + 1,
+    },
+  }),
 }));
 
 const AppBar = styled(MuiAppBar, {
@@ -93,23 +108,6 @@ const AppBar = styled(MuiAppBar, {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
   }),
 }));
 
@@ -154,20 +152,35 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const getPageTitle = (pathname) => {
-  const match = dashboardNavItems.find(({ to }) => pathname.startsWith(to));
+  const match = allDashboardNavItems.find(({ to }) => pathname.startsWith(to));
   return match?.title ?? "Dashboard";
 };
 
 const DashLayout = () => {
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
   const location = useLocation();
-  const pageTitle = getPageTitle(location.pathname);
   const navigate = useNavigate();
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
-  const toggleDrawer = () => setOpen((prev) => !prev);
+  const toggleDrawer = () => {
+    setDrawerOpen((prev) => !prev);
+  };
+
+  const userType = localStorage.getItem("type") || "viewer";
+  const dashboardNavItems = allDashboardNavItems.filter((item) =>
+    item.requiredRole.includes(userType),
+  );
+  const pageTitle = getPageTitle(location.pathname);
 
   const handleLogout = () => {
+    // Clear all user data from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("firstName");
+    localStorage.removeItem("type");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("email");
+    localStorage.removeItem("userId");
+
+    // Navigate to home
     navigate("/");
   };
 
@@ -175,16 +188,16 @@ const DashLayout = () => {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="fixed">
+        <AppBar position="fixed" open={drawerOpen}>
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer}
               edge="start"
-              sx={{ marginRight: 5 }}
+              onClick={toggleDrawer}
+              sx={{ mr: 2 }}
             >
-              {open ? <MenuOpenIcon /> : <MenuIcon />}
+              <MenuIcon />
             </IconButton>
             <Typography
               variant="h6"
@@ -205,56 +218,66 @@ const DashLayout = () => {
               />
             </Search>
             <Button color="inherit" variant="outlined" onClick={handleLogout}>
-              Logout
+              LOGOUT
             </Button>
           </Toolbar>
         </AppBar>
         {/* Drawer */}
-        <Drawer variant="permanent" open={open}>
-          <DrawerHeader>
+        <Drawer variant="permanent" open={drawerOpen}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              px: 1,
+              py: 1,
+            }}
+          >
             <IconButton onClick={toggleDrawer}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
+              <ChevronLeftIcon />
             </IconButton>
-          </DrawerHeader>
-          <Divider />
-          {/* Drawer List */}
+          </Box>
           <List>
-            {dashboardNavItems.map(({ label, to, icon: Icon }) => (
-              <ListItem key={to} disablePadding sx={{ display: "block" }}>
-                <ListItemButton
-                  component={Link}
-                  to={to}
-                  selected={location.pathname === to}
-                  sx={{
-                    minHeight: 48,
-                    px: 2.5,
-                    justifyContent: open ? "initial" : "center",
-                  }}
-                >
-                  <ListItemIcon
+            {dashboardNavItems.map((item) => {
+              const NavIcon = item.icon;
+              return (
+                <ListItem key={item.to} disablePadding>
+                  <ListItemButton
+                    component={Link}
+                    to={item.to}
+                    selected={location.pathname === item.to}
                     sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
+                      px: 2,
+                      py: 1.5,
+                      "&.Mui-selected": {
+                        backgroundColor: "primary.light",
+                        color: "primary.main",
+                      },
                     }}
                   >
-                    <Icon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={label}
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 40,
+                        justifyContent: "center",
+                        color: "inherit",
+                      }}
+                    >
+                      <NavIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.label}
+                      sx={{
+                        opacity: drawerOpen ? 1 : 0,
+                        transition: "opacity 200ms ease",
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
           </List>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
+        <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 10 }}>
           {/* Content */}
           <Outlet />
         </Box>

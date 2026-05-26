@@ -1,12 +1,46 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../../components/Button";
-import articles from "../../data/article-content.js";
+import { fetchArticleByName } from "../../services/ArticleService";
+import staticArticles from "../../data/article-content.js";
 
 function ArticlePage() {
   const { name } = useParams();
-  const article = articles.find((article) => article.name === name);
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  if (!article) {
+  useEffect(() => {
+    const loadArticle = async () => {
+      try {
+        const { data } = await fetchArticleByName(name);
+        setArticle(data.article);
+      } catch (err) {
+        const fallbackArticle = staticArticles.find(
+          (item) => item.name === name,
+        );
+        if (fallbackArticle) {
+          setArticle(fallbackArticle);
+        } else {
+          setError("Article not found");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadArticle();
+  }, [name]);
+
+  if (loading) {
+    return (
+      <div className="flex w-full flex-col gap-6">
+        <p className="text-slate-700">Loading article...</p>
+      </div>
+    );
+  }
+
+  if (!article || error) {
     return (
       <div className="flex w-full flex-col gap-6">
         <section className="border border-slate-200 bg-slate-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
@@ -22,6 +56,12 @@ function ArticlePage() {
       </div>
     );
   }
+
+  const content = Array.isArray(article.content)
+    ? article.content
+    : article.description
+      ? [article.description]
+      : [];
 
   return (
     <div className="flex w-full flex-col gap-10">
@@ -68,7 +108,7 @@ function ArticlePage() {
         </div>
 
         <div className="prose prose-sm max-w-none space-y-4 text-slate-700">
-          {article.content.map((paragraph, index) => (
+          {content.map((paragraph, index) => (
             <p key={index} className="text-base leading-7 whitespace-pre-wrap">
               {paragraph}
             </p>
