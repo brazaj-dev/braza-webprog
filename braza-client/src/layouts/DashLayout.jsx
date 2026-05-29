@@ -30,14 +30,14 @@ const allDashboardNavItems = [
     title: "Dashboard",
     to: "/dashboard",
     icon: DashboardIcon,
-    requiredRole: ["admin", "viewer"], // All can access
+    requiredRole: ["admin", "editor"], // Admins and editors can access dashboard
   },
   {
     label: "Reports",
     title: "Reports",
     to: "/dashboard/reports",
     icon: AssessmentIcon,
-    requiredRole: ["admin", "viewer"], // All users can access reports
+    requiredRole: ["admin", "editor"], // Admins and editors can access reports
   },
   {
     label: "Users",
@@ -51,7 +51,7 @@ const allDashboardNavItems = [
     title: "Articles",
     to: "/dashboard/articles",
     icon: ArticleIcon,
-    requiredRole: ["admin", "viewer"], // All users can access articles
+    requiredRole: ["admin", "editor"], // Admins and editors can access articles
   },
 ];
 
@@ -104,6 +104,9 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
+  backgroundColor: "#0b74da",
+  color: "#fff",
+  boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -131,9 +134,9 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 0.18),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.3),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -217,14 +220,24 @@ const DashLayout = () => {
             {/* Search */}
             <Search>
               <SearchIconWrapper>
-                <SearchIcon />
+                <SearchIcon sx={{ color: "rgba(255,255,255,0.75)" }} />
               </SearchIconWrapper>
               <StyledInputBase
-                placeholder="Search…"
+                placeholder="Search..."
                 inputProps={{ "aria-label": "search" }}
+                sx={{ color: "#fff", width: { xs: "10rem", sm: "14rem" } }}
               />
             </Search>
-            <Button color="inherit" variant="outlined" onClick={handleLogout}>
+            <Button
+              color="inherit"
+              variant="outlined"
+              onClick={handleLogout}
+              sx={{
+                borderColor: "rgba(255,255,255,0.7)",
+                color: "#fff",
+                textTransform: "none",
+              }}
+            >
               LOGOUT
             </Button>
           </Toolbar>

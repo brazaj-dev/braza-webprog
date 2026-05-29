@@ -1,131 +1,253 @@
 import React from "react";
-import Button from "../../components/Button";
+import { Link } from "react-router-dom";
+import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import { BarChart } from "@mui/x-charts/BarChart";
+import { PieChart } from "@mui/x-charts/PieChart";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import markerIconPng from "leaflet/dist/images/marker-icon.png";
+import markerShadowPng from "leaflet/dist/images/marker-shadow.png";
+
+const defaultIcon = L.icon({
+  iconUrl: markerIconPng,
+  shadowUrl: markerShadowPng,
+  iconAnchor: [12, 41],
+});
 
 const stats = [
-  { value: "8", label: "New Reports" },
-  { value: "22", label: "Published Articles" },
-  { value: "3", label: "Pending Reviews" },
-  { value: "99%", label: "Uptime" },
+  { value: "9", label: "Total Users" },
+  { value: "47.8", label: "Average Age" },
+  { value: "50", label: "Performance" },
+  { value: "60", label: "Efficiency" },
+];
+
+const quarterlySales = [35, 48, 29, 53];
+const quarterLabels = ["Q1", "Q2", "Q3", "Q4"];
+const distributionData = [
+  { id: 0, value: 42, label: "Series A" },
+  { id: 1, value: 33, label: "Series B" },
+  { id: 2, value: 25, label: "Series C" },
 ];
 
 function DashboardPage() {
   const userType = localStorage.getItem("type") || "viewer";
 
   return (
-    <div className="mx-auto min-h-[calc(100vh-4rem)] w-full max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
-      <section className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-sky-600 via-cyan-500 to-indigo-600 px-6 py-10 text-white shadow-[0_30px_60px_-30px_rgba(15,23,42,0.7)] sm:px-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/80">
-              Animal Hub
-            </p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Your Animal Hub information center.
-            </h1>
-            <p className="mt-4 max-w-xl text-base leading-7 text-cyan-100/90">
-              Explore animal reports, article content, and user activity in one
-              calm hub built for animal lovers and caretakers.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
+    <Box
+      sx={{
+        px: { xs: 2, md: 4 },
+        py: { xs: 3, md: 4 },
+        maxWidth: 1440,
+        mx: "auto",
+        minHeight: "calc(100vh - 90px)",
+      }}
+    >
+      <Stack spacing={3}>
+        <Paper
+          sx={{
+            p: { xs: 3, md: 4 },
+            borderRadius: 3,
+            background: "linear-gradient(90deg, #0f172a 0%, #2563eb 100%)",
+            color: "#fff",
+            boxShadow: "0 20px 60px rgba(15,23,42,0.16)",
+          }}
+        >
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            justifyContent="space-between"
+            alignItems={{ xs: "flex-start", md: "center" }}
+            spacing={2}
+          >
+            <Box>
+              <Typography
+                variant="overline"
+                sx={{ letterSpacing: 2, color: "rgba(255,255,255,0.75)" }}
+              >
+                Dashboard Overview
+              </Typography>
+              <Typography variant="h3" sx={{ fontWeight: 700, mt: 1 }}>
+                Animal Hub Summary
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ mt: 1, maxWidth: 520, color: "rgba(255,255,255,0.88)" }}
+              >
+                Monitor animal activity, user metrics, and location data from
+                one clean overview page.
+              </Typography>
+            </Box>
             <Button
+              component={Link}
               to="/dashboard/reports"
-              variant="primary"
-              className="rounded-full px-6 py-3 text-sm"
+              variant="contained"
+              sx={{
+                backgroundColor: "#fff",
+                color: "#0f172a",
+                textTransform: "none",
+                px: 4,
+                py: 1.5,
+                fontWeight: 700,
+                "&:hover": {
+                  backgroundColor: "#f8fafc",
+                },
+              }}
             >
-              Animal Reports
+              View Reports
             </Button>
-            <Button
-              to="/dashboard/articles"
-              className="rounded-full px-6 py-3 text-sm"
-            >
-              Animal Articles
-            </Button>
-            {userType === "admin" && (
-              <Button
-                to="/dashboard/users"
-                className="rounded-full border-white/30 bg-white/10 px-6 py-3 text-sm text-white backdrop-blur-sm hover:bg-white/15"
-              >
-                Animal Users
-              </Button>
-            )}
-          </div>
-        </div>
-      </section>
+          </Stack>
+        </Paper>
 
-      <section className="grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
-        <div className="rounded-[2rem] border border-slate-200 bg-white px-6 py-8 shadow-sm transition hover:-translate-y-0.5 sm:px-8">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
-                Animal Hub insights
-              </p>
-              <h2 className="mt-2 text-3xl font-semibold text-slate-900">
-                Animal activity
-              </h2>
-            </div>
-            <span className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm">
-              {userType === "admin" ? "Admin" : "Editor"}
-            </span>
-          </div>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {stats.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5 shadow-sm"
+        <Grid container spacing={3}>
+          {stats.map((item) => (
+            <Grid item xs={12} sm={6} md={3} key={item.label}>
+              <Paper
+                sx={{
+                  p: 3,
+                  borderRadius: 3,
+                  minHeight: 140,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  boxShadow: "0 18px 40px rgba(15,23,42,0.08)",
+                }}
               >
-                <p className="text-3xl font-semibold text-slate-900">
-                  {item.value}
-                </p>
-                <p className="mt-2 text-sm uppercase tracking-[0.24em] text-slate-500">
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  sx={{ textTransform: "uppercase", letterSpacing: 1.2 }}
+                >
                   {item.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+                </Typography>
+                <Typography variant="h3" sx={{ fontWeight: 700, mt: 2 }}>
+                  {item.value}
+                </Typography>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
 
-        <div className="rounded-[2rem] border border-slate-200 bg-slate-50 px-6 py-8 shadow-sm transition hover:-translate-y-0.5 sm:px-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
-            Quick Actions
-          </p>
-          <h2 className="mt-2 text-3xl font-semibold text-slate-900">
-            Take action fast
-          </h2>
-          <p className="mt-4 text-sm leading-6 text-slate-600">
-            Access the most important dashboard pages with a single click. Keep
-            your work moving without clutter.
-          </p>
-
-          <div className="mt-8 grid gap-4">
-            <Button
-              to="/dashboard/reports"
-              variant="primary"
-              className="w-full px-6 py-3 text-sm"
-            >
-              View Animal Reports
-            </Button>
-            <Button
-              to="/dashboard/articles"
-              className="w-full rounded-full border border-slate-200 bg-white px-6 py-3 text-sm text-slate-900 hover:bg-slate-100"
-            >
-              View Animal Articles
-            </Button>
-            {userType === "admin" && (
-              <Button
-                to="/dashboard/users"
-                variant="secondary"
-                className="w-full rounded-full px-6 py-3 text-sm"
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={8}>
+            <Paper sx={{ p: 3, borderRadius: 3, boxShadow: 3, minHeight: 420 }}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                mb={3}
               >
-                Manage Animal Users
-              </Button>
-            )}
-          </div>
-        </div>
-      </section>
-    </div>
+                <Box>
+                  <Typography variant="subtitle2" color="text.secondary">
+                    Quarterly Sales
+                  </Typography>
+                  <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                    Sales performance
+                  </Typography>
+                </Box>
+                <Stack direction="row" spacing={2}>
+                  <Box
+                    sx={{
+                      width: 10,
+                      height: 10,
+                      bgcolor: "#0ea5e9",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <Typography variant="body2" color="text.secondary">
+                    Series 1
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: 10,
+                      height: 10,
+                      bgcolor: "#14b8a6",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <Typography variant="body2" color="text.secondary">
+                    Series 2
+                  </Typography>
+                </Stack>
+              </Stack>
+              <BarChart
+                series={[
+                  {
+                    label: "Sales",
+                    data: quarterlySales,
+                    color: "#0ea5e9",
+                  },
+                ]}
+                xAxis={[
+                  {
+                    data: quarterLabels,
+                    scaleType: "band",
+                  },
+                ]}
+                height={320}
+              />
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} lg={4}>
+            <Paper sx={{ p: 3, borderRadius: 3, boxShadow: 3, minHeight: 420 }}>
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ textTransform: "uppercase", letterSpacing: 1.2 }}
+              >
+                Distribution
+              </Typography>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
+                Category share
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <PieChart
+                  series={[{ data: distributionData }]}
+                  width={360}
+                  height={320}
+                />
+              </Box>
+            </Paper>
+          </Grid>
+        </Grid>
+
+        <Paper sx={{ p: 3, borderRadius: 3, boxShadow: 3 }}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={3}
+          >
+            <Box>
+              <Typography variant="subtitle2" color="text.secondary">
+                Live Map
+              </Typography>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                National University Manila
+              </Typography>
+            </Box>
+            <Typography variant="body2" color="text.secondary">
+              Pinned on the map
+            </Typography>
+          </Stack>
+          <Box sx={{ height: 420, borderRadius: 3, overflow: "hidden" }}>
+            <MapContainer
+              center={[14.604293, 120.994273]}
+              zoom={16}
+              style={{ width: "100%", height: "100%" }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[14.604293, 120.994273]} icon={defaultIcon}>
+                <Popup>National University Manila</Popup>
+              </Marker>
+            </MapContainer>
+          </Box>
+        </Paper>
+      </Stack>
+    </Box>
   );
 }
 

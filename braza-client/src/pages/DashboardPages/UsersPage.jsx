@@ -41,7 +41,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-const roles = ["admin", "viewer"];
+const roles = ["admin", "editor", "viewer"];
 const genders = ["male", "female", "other"];
 
 const blankForm = {
@@ -58,11 +58,8 @@ const blankForm = {
   isActive: true,
 };
 
-const labelize = (val) => {
-  if (!val) return "";
-  if (val === "viewer") return "Editor";
-  return `${val.charAt(0).toUpperCase()}${val.slice(1)}`;
-};
+const labelize = (val) =>
+  val ? `${val.charAt(0).toUpperCase()}${val.slice(1)}` : "";
 
 const UsersPage = () => {
   const theme = useTheme();
@@ -177,13 +174,6 @@ const UsersPage = () => {
         type: form.role,
       };
 
-      if (modal.id && isOriginalAdmin && form.role === "editor") {
-        // Preserve admin role if the original user is an admin — disallow demotion to editor
-        payload.type = "admin";
-        console.warn(
-          "Attempted to set an admin to editor; preserving admin role.",
-        );
-      }
       delete payload.role;
 
       if (modal.id) {
