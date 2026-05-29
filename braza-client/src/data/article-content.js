@@ -5,7 +5,7 @@ const articles = [
     cardTitle: "Dogs",
     cardDescription:
       "Explore the diverse world of dogs, from loyal working breeds to gentle household companions.",
-    image: new URL("./dog.avif", import.meta.url).href,
+    image: new URL("../assets/dog.avif", import.meta.url).href,
     description:
       "Discover how dogs became humanity's faithful companions and learn what makes each breed unique.",
     types: ["Domestic animals", "Working dogs", "Companion pets"],
@@ -22,7 +22,7 @@ const articles = [
     cardTitle: "Cats",
     cardDescription:
       "An insightful look into feline independence, grace, and the many ways cats charm their families.",
-    image: new URL("./cat.webp", import.meta.url).href,
+    image: new URL("../assets/cat.webp", import.meta.url).href,
     description:
       "Learn about the mysterious nature of cats and how they express affection, independence, and curiosity.",
     types: ["Domestic cats", "Indoor pets", "Nocturnal hunters"],
@@ -40,7 +40,7 @@ const articles = [
     cardTitle: "Birds",
     cardDescription:
       "Discover the fascinating mechanics of flight and the colorful variety of bird species around the world.",
-    image: new URL("./bird.webp", import.meta.url).href,
+    image: new URL("../assets/bird.webp", import.meta.url).href,
     description:
       "Explore how birds fly, migrate, sing, and survive in many different habitats.",
     types: ["Wild birds", "Migratory species", "Songbirds"],
@@ -58,7 +58,7 @@ const articles = [
     cardTitle: "Monkeys",
     cardDescription:
       "Dive into the complex social structures and playful behaviors of monkeys in the wild.",
-    image: new URL("./MONKEY.webp", import.meta.url).href,
+    image: new URL("../assets/MONKEY.webp", import.meta.url).href,
     description:
       "Learn how monkeys live in groups, communicate, and use intelligence to solve problems.",
     types: ["Primate species", "Tropical animals", "Social mammals"],
@@ -76,7 +76,7 @@ const articles = [
     cardTitle: "Fish",
     cardDescription:
       "Explore aquatic life and how fish adapt to water-based habitats across the planet.",
-    image: new URL("./fish.webp", import.meta.url).href,
+    image: new URL("../assets/fish.webp", import.meta.url).href,
     description:
       "Dive into the underwater world of fish and discover how they survive in freshwater and saltwater.",
     types: ["Freshwater fish", "Saltwater fish", "Aquatic animals"],

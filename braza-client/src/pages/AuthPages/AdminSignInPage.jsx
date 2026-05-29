@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import { loginUser } from "../../services/UserService";
 import constants from "../../constants";
@@ -13,7 +13,6 @@ const AdminSignInPage = () => {
   const [loading, setLoading] = useState(false);
   const [connectionOk, setConnectionOk] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
 
   // Check server connection on mount
   useEffect(() => {
