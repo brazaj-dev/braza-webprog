@@ -63,21 +63,6 @@ const SignInPage = () => {
     await handleLogin(payload);
   };
 
-  const handleQuickLogin = async (identifier, password) => {
-    setCredentials({ identifier, password });
-    const payload = {
-      password,
-    };
-
-    if (identifier.includes("@")) {
-      payload.email = identifier.trim();
-    } else {
-      payload.username = identifier.trim();
-    }
-
-    await handleLogin(payload);
-  };
-
   return (
     <div className="space-y-6">
       <div className="rounded-[2rem] border border-slate-200 bg-white/95 p-8 shadow-2xl backdrop-blur-sm">
@@ -155,27 +140,6 @@ const SignInPage = () => {
             Sign Up
           </Link>
         </p>
-      </div>
-
-      <div className="rounded-[2rem] border border-slate-200 bg-white/95 p-8 shadow-2xl backdrop-blur-sm">
-        <div className="mb-8 space-y-3">
-          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-sky-500">
-            Quick Access
-          </p>
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900">
-            Admin Login
-          </h2>
-          <p className="text-sm leading-6 text-slate-600">
-            Quick access for administrators to explore and manage the dashboard.
-          </p>
-        </div>
-
-        <Link
-          to="/auth/admin-signin"
-          className="block w-full rounded-xl border-2 border-sky-400 bg-gradient-to-br from-sky-500 to-sky-600 px-6 py-3 text-center font-semibold text-white transition hover:border-sky-500 hover:shadow-lg"
-        >
-          Login as Administrator
-        </Link>
       </div>
     </div>
   );

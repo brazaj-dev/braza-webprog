@@ -70,7 +70,7 @@ const SignUpPage = () => {
 
     try {
       // Create the payload, excluding confirmPassword
-      const { confirmPassword, ...payload } = formData;
+      const { confirmPassword: _, ...payload } = formData;
       payload.type = "viewer"; // Set default type as viewer for signups
 
       const { data } = await createUser(payload);
