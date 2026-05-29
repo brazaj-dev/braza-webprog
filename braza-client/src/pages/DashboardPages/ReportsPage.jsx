@@ -6,6 +6,7 @@ import {
   CardContent,
   Button,
   Box,
+  Paper,
   Chip,
 } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
@@ -116,36 +117,68 @@ function ReportsPage() {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      {/* 🔹 HEADER SECTION */}
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ xs: "flex-start", md: "center" }}
-        mb={4}
-        spacing={2}
+    <Box
+      sx={{
+        p: { xs: 2, md: 4 },
+        maxWidth: 1200,
+        mx: "auto",
+        minHeight: "calc(100vh - 90px)",
+      }}
+    >
+      <Paper
+        sx={{
+          p: { xs: 3, md: 4 },
+          mb: 4,
+          borderRadius: 4,
+          boxShadow: "0 20px 60px rgba(15,23,42,0.08)",
+          background: "linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)",
+          color: "#fff",
+        }}
       >
-        <Stack direction="row" alignItems="center" spacing={2}>
-          <AnalyticsIcon sx={{ fontSize: 40, color: "primary.main" }} />
-          <Box>
-            <Typography variant="h4">Reports & Analytics</Typography>
-            <Typography variant="body2" color="textSecondary">
-              Monitor your performance metrics and data exports.
-            </Typography>
-          </Box>
-        </Stack>
-
-        <Button
-          variant="outlined"
-          startIcon={<FileDownloadIcon />}
-          onClick={handlePrint}
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          justifyContent="space-between"
+          alignItems={{ xs: "flex-start", md: "center" }}
+          spacing={2}
         >
-          Export PDF
-        </Button>
-      </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <AnalyticsIcon sx={{ fontSize: 40, color: "#fff" }} />
+            <Box>
+              <Typography variant="h4" sx={{ fontWeight: 700, color: "#fff" }}>
+                Animal Hub Reports
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ color: "rgba(255,255,255,0.85)" }}
+              >
+                Review animal activity, report trends, and export your data.
+              </Typography>
+            </Box>
+          </Stack>
 
-      {/* 🔹 FILTER BUTTONS */}
-      <Box mb={3}>
+          <Button
+            variant="contained"
+            startIcon={<FileDownloadIcon />}
+            onClick={handlePrint}
+            sx={{
+              background: "rgba(255,255,255,0.18)",
+              color: "#fff",
+              borderColor: "rgba(255,255,255,0.3)",
+            }}
+          >
+            Export PDF
+          </Button>
+        </Stack>
+      </Paper>
+
+      <Paper
+        sx={{
+          p: { xs: 3, md: 4 },
+          mb: 3,
+          borderRadius: 4,
+          boxShadow: 1,
+        }}
+      >
         <Typography variant="subtitle2" gutterBottom>
           Select Timeframe:
         </Typography>
@@ -165,7 +198,7 @@ function ReportsPage() {
             Quarterly
           </Button>
         </Stack>
-      </Box>
+      </Paper>
 
       {/* 🔹 PRINTABLE AREA */}
       <Stack ref={printRef} spacing={4}>

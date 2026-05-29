@@ -6,7 +6,7 @@ const API = axios.create({
   baseURL: `${constants.HOST.replace(/\/+$/g, "")}/users`,
 });
 
-// Add request interceptor to include authorization token
+
 API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");

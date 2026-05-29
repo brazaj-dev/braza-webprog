@@ -15,6 +15,7 @@ import DashLayout from "./layouts/DashLayout.jsx";
 import DashboardPage from "./pages/DashboardPages/DashboardPage.jsx";
 import ReportsPage from "./pages/DashboardPages/ReportsPage.jsx";
 import DashArticleListPage from "./pages/DashboardPages/DashArticleListPage.jsx";
+import UsersPage from "./pages/DashboardPages/UsersPage.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 
 const routes = [
@@ -70,7 +71,7 @@ const routes = [
     children: [
       { index: true, element: <DashboardPage /> },
       { path: "reports", element: <ReportsPage /> },
-
+      { path: "users", element: <UsersPage /> },
       { path: "articles", element: <DashArticleListPage /> },
     ],
   },

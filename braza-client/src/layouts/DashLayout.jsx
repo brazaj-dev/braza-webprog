@@ -40,6 +40,13 @@ const allDashboardNavItems = [
     requiredRole: ["admin", "viewer"], // All users can access reports
   },
   {
+    label: "Users",
+    title: "Users",
+    to: "/dashboard/users",
+    icon: PeopleIcon,
+    requiredRole: ["admin"], // Admins only
+  },
+  {
     label: "Articles",
     title: "Articles",
     to: "/dashboard/articles",
@@ -247,8 +254,9 @@ const DashLayout = () => {
                     to={item.to}
                     selected={location.pathname === item.to}
                     sx={{
-                      px: 2,
+                      px: drawerOpen ? 2 : 1,
                       py: 1.5,
+                      justifyContent: drawerOpen ? "flex-start" : "center",
                       "&.Mui-selected": {
                         backgroundColor: "primary.light",
                         color: "primary.main",
@@ -267,8 +275,7 @@ const DashLayout = () => {
                     <ListItemText
                       primary={item.label}
                       sx={{
-                        opacity: drawerOpen ? 1 : 0,
-                        transition: "opacity 200ms ease",
+                        display: drawerOpen ? "block" : "none",
                       }}
                     />
                   </ListItemButton>

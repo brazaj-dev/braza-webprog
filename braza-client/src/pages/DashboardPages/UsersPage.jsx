@@ -58,8 +58,11 @@ const blankForm = {
   isActive: true,
 };
 
-const labelize = (val) =>
-  val ? `${val.charAt(0).toUpperCase()}${val.slice(1)}` : "";
+const labelize = (val) => {
+  if (!val) return "";
+  if (val === "viewer") return "Editor";
+  return `${val.charAt(0).toUpperCase()}${val.slice(1)}`;
+};
 
 const UsersPage = () => {
   const theme = useTheme();
@@ -282,31 +285,51 @@ const UsersPage = () => {
   ];
 
   return (
-    <Box sx={{ p: { xs: 2, md: 4 } }}>
-      {/* Header */}
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={4}
+    <Box
+      sx={{
+        p: { xs: 2, md: 4 },
+        maxWidth: 1200,
+        mx: "auto",
+        minHeight: "calc(100vh - 90px)",
+      }}
+    >
+      <Paper
+        sx={{
+          p: { xs: 3, md: 4 },
+          mb: 4,
+          borderRadius: 4,
+          boxShadow: "0 20px 60px rgba(15,23,42,0.08)",
+        }}
       >
-        <Stack direction="row" spacing={2} alignItems="center">
-          <PeopleIcon color="primary" sx={{ fontSize: 40 }} />
-          <Typography variant="h4" fontWeight="bold">
-            Users
-          </Typography>
-        </Stack>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => openModal()}
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
         >
-          Add User
-        </Button>
-      </Stack>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <PeopleIcon color="primary" sx={{ fontSize: 40 }} />
+            <Box>
+              <Typography variant="h4" fontWeight="bold">
+                Animal Hub Users
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Manage the people and accounts behind the animal hub.
+              </Typography>
+            </Box>
+          </Stack>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => openModal()}
+          >
+            Add User
+          </Button>
+        </Stack>
+      </Paper>
 
       {/* Filters */}
-      <Paper sx={{ p: 2, mb: 3 }}>
+      <Paper sx={{ p: 3, mb: 3, borderRadius: 4, boxShadow: 1 }}>
         <Stack spacing={2}>
           <TextField
             fullWidth
