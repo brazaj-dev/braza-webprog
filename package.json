@@ -9,6 +9,7 @@
     "baseline-browser-mapping": "^2.10.12",
     "bcryptjs": "^3.0.3",
     "bezier-easing": "^2.1.0",
+    "body-parser": "^1.20.5",
     "browserslist": "^4.28.1",
     "callsites": "^3.1.0",
     "caniuse-lite": "^1.0.30001782",

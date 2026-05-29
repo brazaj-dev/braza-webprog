@@ -131,6 +131,10 @@ const DashArticleListPage = () => {
       closeModal();
     } catch (err) {
       console.error("Save error:", err);
+      // Show a user-visible error so failures aren't silent
+      const serverMsg =
+        err?.response?.data?.message || err.message || "Unknown error";
+      alert(`Failed to save article: ${serverMsg}`);
     }
   };
 
