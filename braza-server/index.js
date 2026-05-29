@@ -12,10 +12,12 @@ const jsonParser = bodyParser.json();
 
 const app = express();
 
-// Database Connection and seed admin
-connectDB().then(() => {
-  seedAdmin();
-});
+// Database Connection and seed admin - store promise so we can await it
+const dbReady = connectDB()
+  .then(() => seedAdmin())
+  .catch((err) => {
+    console.error("DB initialization failed:", err.message);
+  });
 
 app.use(express.json());
 app.use(jsonParser);
@@ -46,6 +48,16 @@ app.use((req, res, next) => {
     "GET, POST, PUT, DELETE, PATCH, OPTIONS",
   );
   next();
+});
+
+// Ensure DB is connected before handling API requests
+app.use("/api", async (req, res, next) => {
+  try {
+    await dbReady;
+    next();
+  } catch (err) {
+    res.status(503).json({ message: "Database connection unavailable" });
+  }
 });
 
 // Health check endpoint

@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "build": "esbuild index.js --bundle --platform=node --format=esm --outfile=dist/index.js",
     "seed": "node seeds/seedAdmin.js"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "mongodb-memory-server": "^11.1.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "esbuild": "^0.17.19"
   }
 }
