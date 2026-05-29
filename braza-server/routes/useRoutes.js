@@ -1,23 +1,21 @@
-import express from "express";
-// import functions
-import {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-  loginUser,
-} from "../controllers/userController.js";
-import { verifyToken, verifyAdmin } from "../middleware/auth.js";
+  import express from "express";
 
-const router = express.Router();
+  import {
+    getUsers,
+    createUser,
+    updateUser,
+    deleteUser,
+    loginUser,
+  } from "../controllers/userController.js";
+  import { verifyToken, verifyAdmin } from "../middleware/auth.js";
 
-// Public endpoints
-router.post("/login", loginUser);
-router.post("/", createUser); // Allow public registration
+  const router = express.Router();
 
-// Protected endpoints (require token)
-router.get("/", verifyToken, getUsers); // Only authenticated users can view all users
-router.put("/:id", verifyToken, updateUser); // Only authenticated users can update users
-router.delete("/:id", verifyAdmin, deleteUser); // Only admins can delete users
+  router.post("/login", loginUser);
+  router.post("/", createUser);
 
-export default router;
+  router.get("/", verifyToken, getUsers); 
+  router.put("/:id", verifyToken, updateUser);
+  router.delete("/:id", verifyAdmin, deleteUser); 
+
+  export default router;
