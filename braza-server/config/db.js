@@ -17,8 +17,6 @@ const connectDB = async () => {
   } catch (error) {
     console.error(`MongoDB connection failed: ${error.message}`);
 
-    // If the failure appears to be an SRV/DNS lookup refusal, try forcing a public DNS resolver
-    // and retry once. This helps on networks whose DNS blocks SRV queries.
     const isSrvError = /querySrv|ENODATA|EAI_AGAIN|ECONNREFUSED/.test(
       error.message || "",
     );
@@ -38,13 +36,10 @@ const connectDB = async () => {
         console.error(`Retry with Google DNS failed: ${retryErr.message}`);
       }
 
-      // If the simple DNS server switch didn't work, try a DNS-over-HTTPS SRV lookup
-      // and build a non-SRV connection string from the returned targets.
       try {
         console.warn(
           "Attempting DNS-over-HTTPS SRV lookup to build standard URI...",
         );
-        // Extract authority and DB info from the mongodb+srv URI
         const match = mongoUri.match(
           /^mongodb\+srv:\/\/([^/]+)\/?([^?]*)\??(.*)$/,
         );
