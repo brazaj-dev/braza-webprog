@@ -18,6 +18,19 @@ import DashArticleListPage from "./pages/DashboardPages/DashArticleListPage.jsx"
 import UsersPage from "./pages/DashboardPages/UsersPage.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 
+// Smart redirect: sends users to the right place based on login state
+const HomeRedirect = () => {
+  const token = localStorage.getItem("token");
+  const type = localStorage.getItem("type");
+  if (!token || token === "undefined" || token === "null") {
+    return <Navigate to="/auth/signin" replace />;
+  }
+  if (type === "viewer") {
+    return <Navigate to="/articles" replace />;
+  }
+  return <Navigate to="/dashboard" replace />;
+};
+
 const routes = [
   {
     path: "/",
@@ -26,7 +39,7 @@ const routes = [
     children: [
       {
         index: true,
-        element: <Navigate to="/auth/signin" replace />,
+        element: <HomeRedirect />,
       },
       {
         path: "about",
