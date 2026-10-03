@@ -10,7 +10,7 @@ const RequireAuth = ({ children }) => {
   }
 
   if (type === "viewer") {
-    return <Navigate to="/articles" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;
