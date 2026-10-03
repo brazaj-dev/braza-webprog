@@ -25,7 +25,7 @@ const routes = [
     errorElement: <NotFoundPage />,
     children: [
       {
-        path: "",
+        index: true,
         element: <Navigate to="/auth/signin" replace />,
       },
       {
