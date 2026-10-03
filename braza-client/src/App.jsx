@@ -1,5 +1,5 @@
 import "./assets/styles/index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
 import Layout from "./layouts/Layout.jsx";
 import AuthLayout from "./layouts/AuthLayout.jsx";
@@ -26,7 +26,7 @@ const routes = [
     children: [
       {
         path: "",
-        element: <HomePage />,
+        element: <Navigate to="/auth/signin" replace />,
       },
       {
         path: "about",
