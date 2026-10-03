@@ -16,7 +16,6 @@ const connectDB = async () => {
     return;
   } catch (error) {
     console.error(`MongoDB connection failed: ${error.message}`);
-
     const isSrvError = /querySrv|ENODATA|EAI_AGAIN|ECONNREFUSED/.test(
       error.message || "",
     );
