@@ -31,7 +31,8 @@ const SignInPage = () => {
       localStorage.setItem("email", data.email);
       localStorage.setItem("userId", data.userId);
 
-      const from = location.state?.from?.pathname || "/dashboard";
+      const defaultRedirect = data.type === "viewer" ? "/articles" : "/dashboard";
+      const from = location.state?.from?.pathname || defaultRedirect;
       navigate(from, { replace: true });
     } catch (err) {
       const message =
