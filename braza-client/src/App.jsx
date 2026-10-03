@@ -18,6 +18,13 @@ import DashArticleListPage from "./pages/DashboardPages/DashArticleListPage.jsx"
 import UsersPage from "./pages/DashboardPages/UsersPage.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 
+// Shows HomePage for logged-in users; redirects guests to sign-in
+const HomeRoute = () => {
+  const token = localStorage.getItem("token");
+  const isLoggedIn = token && token !== "undefined" && token !== "null";
+  return isLoggedIn ? <HomePage /> : <Navigate to="/auth/signin" replace />;
+};
+
 const routes = [
   {
     path: "/",
@@ -26,7 +33,7 @@ const routes = [
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <HomeRoute />,
       },
       {
         path: "about",
